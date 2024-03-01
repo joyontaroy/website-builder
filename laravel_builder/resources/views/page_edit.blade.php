@@ -1,5 +1,5 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- Page specific assets -->
 <link rel="stylesheet" href="{{ asset('assets/home/css/owl.carousel.min.css') }}">
@@ -10,10 +10,11 @@
 <link rel="stylesheet" href="{{ asset('assets/home/css/nice-select.css') }}">
 <!-------------- Fontawasome  Css ----------------->
 <link rel="stylesheet" href="{{ asset('assets/home/css/all.min.css') }}">
-<!--------------- Custome Fronts  --------------------->
+<!--------------- Custom Fronts  --------------------->
 <link rel="stylesheet" href="{{ asset('assets/home/css/custome-front/custom-fronts.css') }}">
-<!-------------- Bootstrap  Css ----------------->
+<!-------------- Bootstrap   ----------------->
 <link rel="stylesheet" href="{{ asset('assets/home/css/bootstrap.min.css') }}">
+<script src="{{ asset('assets/home/js/bootstrap.bundle.min.js') }}"></script>
 <!-------------- Main Css ----------------------->
 <link rel="stylesheet" href="{{ asset('assets/home/css/style.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/home/css/responsive.css') }}">
@@ -28,27 +29,30 @@
 <!-- Toastr  -->
 <link rel="stylesheet" href="{{ asset('assets/toastr/toastr.min.css') }}">
 <script src="{{ asset('assets/toastr/toastr.min.js') }}"></script>
-
-<!-- Builder bar -->
-<div id="editor_top_bar" class="editor_top_bar">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-9 py-3">
-                <div class="editor_title">Page Builder</div>
-            </div>
-            <div class="col-md-3 py-2">
-                <a class="btn btn-light btn-lg float-end mx-1" href="{{ route('pages') }}">back</a>
-                <a class="btn btn-light btn-lg float-end mx-1" href="{{ route('page.view', $page_data->id) }}">preview</a>
-                <button class="btn btn-light btn-lg float-end mx-1" onclick="save_layout()">save</button>
+<body>
+    <!-- Builder bar -->
+    <div id="editor_top_bar" class="editor_top_bar">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9 py-3">
+                    <div class="editor_title">Page Builder</div>
+                </div>
+                <div class="col-md-3 py-2">
+                    <a class="btn btn-light btn-lg float-end mx-1" href="{{ route('pages') }}">back</a>
+                    <a class="btn btn-light btn-lg float-end mx-1" href="{{ route('page.view', $page_data->id) }}">preview</a>
+                    <button class="btn btn-light btn-lg float-end mx-1" onclick="save_layout()">save</button>
+                </div>
             </div>
         </div>
+        
     </div>
-    
-</div>
 
-<div id="main">
-    {!! $page_data->html !!}
-</div>
+    <div id="main">
+        {!! $page_data->html !!}
+    </div>
+   
+
+    @include ('page_offcanvas')
 </body>
 <script>
 
@@ -64,7 +68,7 @@ function save_layout() {
 
     // now extract the plain html
     let output = $("#main").html();
-    console.log(output);
+    // console.log(output);
 
     // Save the modified html codes to server
     $.ajaxSetup({
@@ -92,7 +96,7 @@ function save_layout() {
     // Re-initiate the builder
     initiate_builder()
     output = $("#main").html();
-    console.log(output);
+    // console.log(output);
 }
 
 
@@ -158,28 +162,33 @@ function initiate_builder() {
 }
 
 function add_block(addButton) {
-    var newDiv = $('<div class="section parent" style="height:100px;">New div</div>');
-    // Bring a new block from server
-    let url = '{{ route("get.new.block", 3) }}'
-    let new_block = ''
-    $.ajax({
-        type: "GET",
-        url: url,
-        success: function(response_data){
-            section_id = addButton.getAttribute('add-id')
+    // var newDiv = $('<div class="section parent" style="height:100px;">New div</div>');
+    // // Bring a new block from server
+    // let url = '{{ route("get.new.block", 3) }}'
+    // let new_block = ''
+    // $.ajax({
+    //     type: "GET",
+    //     url: url,
+    //     success: function(response_data){
+    //         section_id = addButton.getAttribute('add-id')
 
-            new_random_id = Math.floor(Math.random()*1000)
-            block_pre_code = '<div class="section parent" id="'+new_random_id+'">'
-            block_post_code = '</div>'
-            new_block = block_pre_code + response_data + block_post_code
-            $("#"+section_id).after(new_block)
-            console.log(new_block)
-            initiate_builder()
-        }
-    });
+    //         new_random_id = Math.floor(Math.random()*1000)
+    //         block_pre_code = '<div class="section parent" id="'+new_random_id+'">'
+    //         block_post_code = '</div>'
+    //         new_block = block_pre_code + response_data + block_post_code
+    //         $("#"+section_id).after(new_block)
+    //         console.log(new_block)
+    //         initiate_builder()
+    //     }
+    // });
     
 
-    initiate_builder()
+    // initiate_builder()
+
+    // let url = '{{ route("get.new.block", 3) }}'
+    block_id = addButton.getAttribute('add-id')
+    let url = '{{ route("create.new.block") }}' + '/' + block_id
+    show_offcanvas(url, block_id)
 }
 
 

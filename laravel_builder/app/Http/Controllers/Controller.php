@@ -39,4 +39,15 @@ class Controller extends BaseController
         return $new_block;
     }
 
+    public function create_new_block($id) {
+        $block_list    = Block::all();
+        $parent_block_id      = $id;
+        return view('block_create', [ 'block_list' => $block_list, 'parent_block_id' => $parent_block_id ]);
+    }
+
+    public function get_block_html($id) {
+        $block_html    = Block::where('id', $id)->first()->html;
+        return $block_html;
+    }
+
 }

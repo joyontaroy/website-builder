@@ -23,3 +23,5 @@ Route::get('/page/edit/{id?}', [Controller::class, 'page_edit'] )->name('page.ed
 Route::get('/page/view/{id?}', [Controller::class, 'page_view'] )->name('page.view');
 Route::post('/page/save/', [Controller::class, 'page_save'] )->name('page.save');
 Route::get('/get_new_block/{id?}', [Controller::class, 'get_new_block'] )->name('get.new.block');
+Route::get('/create_new_block/{id?}', [Controller::class, 'create_new_block'] )->name('create.new.block');
+Route::get('/get_block_html/{id?}', [Controller::class, 'get_block_html'] )->name('get.block.html');
