@@ -9,7 +9,7 @@
 $(document).ready(function() {
 
   // Declare the offcanvas
-  offcanvas = new bootstrap.Offcanvas(document.getElementById('offcanvasRight'))
+  offcanvas = new bootstrap.Offcanvas(document.getElementById('offcanvasRight'), {backdrop:false})
 
 });
 

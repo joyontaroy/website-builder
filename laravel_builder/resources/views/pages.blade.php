@@ -21,7 +21,8 @@
                     <tr>
                         <td>{{$page->title}}</td>
                         <td>
-                            <a href="{{ route('page.view', $page->id) }}" class="btn btn-sm btn-secondary">View</a>
+                            <a href="{{ route('page.render', $page->id) }}" class="btn btn-sm btn-secondary">Render</a>
+                            <a href="{{ route('page.view', $page->id) }}" class="btn btn-sm btn-secondary">View layout</a>
                             <a href="{{ route('page.edit', $page->id) }}" class="btn btn-sm btn-secondary">Edit</a>
                             <a href="" class="btn btn-sm btn-danger">Delete</a>
                         </td>

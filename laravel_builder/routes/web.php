@@ -21,6 +21,7 @@ Route::get('/', function () {
 Route::get('/pages', [Controller::class, 'pages'] )->name('pages');
 Route::get('/page/edit/{id?}', [Controller::class, 'page_edit'] )->name('page.edit');
 Route::get('/page/view/{id?}', [Controller::class, 'page_view'] )->name('page.view');
+Route::get('/page/render/{id?}', [Controller::class, 'page_render'] )->name('page.render');
 Route::post('/page/save/', [Controller::class, 'page_save'] )->name('page.save');
 Route::get('/get_new_block/{id?}', [Controller::class, 'get_new_block'] )->name('get.new.block');
 Route::get('/create_new_block/{id?}', [Controller::class, 'create_new_block'] )->name('create.new.block');
