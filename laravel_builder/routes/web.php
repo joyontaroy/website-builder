@@ -25,4 +25,5 @@ Route::get('/page/render/{id?}', [Controller::class, 'page_render'] )->name('pag
 Route::post('/page/save/', [Controller::class, 'page_save'] )->name('page.save');
 Route::get('/get_new_block/{id?}', [Controller::class, 'get_new_block'] )->name('get.new.block');
 Route::get('/create_new_block/{id?}', [Controller::class, 'create_new_block'] )->name('create.new.block');
+Route::get('/edit_block/{id?}/{content_type?}', [Controller::class, 'edit_block'] )->name('edit.block');
 Route::get('/get_block_html/{id?}', [Controller::class, 'get_block_html'] )->name('get.block.html');

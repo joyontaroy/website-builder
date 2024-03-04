@@ -87,6 +87,12 @@ class Controller extends BaseController
         return view('block_create', [ 'block_list' => $block_list, 'parent_block_id' => $parent_block_id ]);
     }
 
+    public function edit_block($id, $content_type) {
+        $parent_block_id        = $id;
+        $content_type           = $content_type;
+        return view('block_edit', [ 'parent_block_id' => $parent_block_id, 'content_type' => $content_type ]);
+    }
+
     public function get_block_html($id) {
         $block_html    = Block::where('id', $id)->first()->html;
         return $block_html;

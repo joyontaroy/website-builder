@@ -57,8 +57,11 @@
 <script>
 
 function edit_content(editbutton) {
-    let edit_id = editbutton.getAttribute('edit-id')
-    console.log(edit_id)
+    let block_id = editbutton.getAttribute('edit-id')
+    let content_type = $("#"+block_id).attr('content_type')
+    console.log(content_type)
+    let url = '{{ route("edit.block") }}' + '/' + block_id + '/' + content_type
+    show_offcanvas(url, block_id)
 }
 
 // Save the edited layout into database
@@ -157,6 +160,26 @@ function initiate_builder() {
             // console.log(divsWithAttribute[i])
         }
 
+    // Bind images with the builder guides
+        var divsWithAttribute = $(".builder_image")
+        // console.log(divsWithAttribute.length)
+        for (var i = 0;i<divsWithAttribute.length;i++){
+            // Get the section id
+            section_id = divsWithAttribute[i].getAttribute('id')
+
+            var parentDiv = document.createElement('div')
+            $(parentDiv).addClass("options child")
+            var customHTML = '<div><button class="btn btn-sm btn-secondary " onclick="edit_content(this)" edit-id="' + section_id +'">Edit</button> \
+                                <button class="btn btn-sm btn-danger" onclick="delete_block(this)" delete-id="' + section_id +'">Delete</button>\
+                                <button class="btn btn-sm btn-primary" onclick="add_block(this)" add-id="' + section_id +'">Add below</button>\
+                                </div>';
+            parentDiv.innerHTML = customHTML;
+
+            // Append the button to the current div element
+            $(divsWithAttribute[i]).append(parentDiv);
+            // console.log(divsWithAttribute[i])
+        }
+
     // Initiate sortable
     $( "#main" ).sortable();
 }
@@ -227,6 +250,10 @@ function show_placeholder_block() {
     position: relative;
     /* Add any other styles you want for the parent div */
 }
+.parent:hover {
+    outline: 2px dotted #000;
+    display:block;
+}
 .child{
     position:absolute;
     display:none;
@@ -246,18 +273,33 @@ function show_placeholder_block() {
     color: #faf4ff;
     font-size: 16px;
 }
+
+
+/* Might not require these styles */
 .section{
     outline:2px dashed rgba(0,0,0,0)
 }
 .section:hover{
-    outline: 2px dashed #000;
+    /* outline: 2px dashed #000; */
 }
 .builder_text{
     outline:2px dashed rgba(0,0,0,0)
 }
 .builder_text:hover{
-    outline: 2px dashed #000;
+    /* outline: 2px dashed #000; */
 }
+.builder_image{
+    outline:2px dashed rgba(0,0,0,0)
+}
+.builder_image:hover{
+    /* outline: 2px dashed #000; */
+}
+/* Might not require these styles */
+
+.builder_image img{
+    display:block;
+}
+
 .placeholder_block{
     text-align: center;
     outline: 2px dashed #c1b4d8;
