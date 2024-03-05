@@ -71,6 +71,10 @@ function save_layout() {
 
     // now extract the plain html
     let output = $("#main").html();
+    if ($("#main").html().trim() === '') {
+        console.log("there is nothing to save")
+        output = "&nbsp;"
+    }
     // console.log(output);
 
     // Save the modified html codes to server
@@ -98,7 +102,7 @@ function save_layout() {
 
     // Re-initiate the builder
     initiate_builder()
-    output = $("#main").html();
+    // output = $("#main").html();
     // console.log(output);
 }
 
@@ -118,6 +122,7 @@ function initiate_builder() {
 
     // Show the placeholder block if no section found
     if(divsWithAttribute.length == 0) {
+        remove_placeholder_block()  // If already exists, then remove it
         show_placeholder_block()
         return
     }
@@ -209,6 +214,9 @@ function add_block(addButton) {
     // initiate_builder()
 
     // let url = '{{ route("get.new.block", 3) }}'
+
+
+
     block_id = addButton.getAttribute('add-id')
     let url = '{{ route("create.new.block") }}' + '/' + block_id
     show_offcanvas(url, block_id)
@@ -228,17 +236,21 @@ function delete_block(deletebutton) {
 }
 
 function show_placeholder_block() {
-    placeholder_block = '<div class="container">\
+    placeholder_block = '<div class="container placeholder_block_holder" id="placeholder_block">\
     <div class="row">\
         <div class="col-md-12">\
             <div class="placeholder_block">\
                 <div>Get started by adding new blocks</div>\
-                <button class="btn btn-primary btn-lg">Add a new block</button>\
+                <button class="btn btn-primary btn-lg" onclick="add_block(this)" add-id="main">Add a new block</button>\
             </div>\
         </div>\
     </div>\
 </div>'
-    $("#main").append(placeholder_block)
+    $("#main").after(placeholder_block)
+}
+
+function remove_placeholder_block() {
+    $(".placeholder_block_holder").remove()
 }
 
 </script>
