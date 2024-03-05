@@ -93,6 +93,21 @@ class Controller extends BaseController
         return view('block_edit', [ 'parent_block_id' => $parent_block_id, 'content_type' => $content_type ]);
     }
 
+    public function upload_block_image(Request $request) {
+        $image = $request->file('file');
+        $path = $image->move( 'uploads/' , $image->getClientOriginalName());
+        $imageUrl = asset($path);
+        return $imageUrl;
+        // return $image->getClientOriginalName();
+        
+        
+        // if ($request->hasFile('file')) {
+        //     $request->file('file')->store('uploads');
+        //     return response()->json(['message' => 'File uploaded successfully.']);
+        // }
+        
+    }
+
     public function get_block_html($id) {
         $block_html    = Block::where('id', $id)->first()->html;
         return $block_html;

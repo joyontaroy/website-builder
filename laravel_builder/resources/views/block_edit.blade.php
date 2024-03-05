@@ -14,7 +14,7 @@
 @if($content_type == 'image')
 <div class="">
     <img src="" alt="" id="image_editor" style="max-width: 100%;border: 1px solid #ccc;">
-    <input type="file" onchange="upload_new_image()">
+    <input type="file" id="image_uploader">
 </div>
 <div id="temp" style="display:none;"></div>
 @endif
@@ -55,13 +55,45 @@
         console.log( imgSrc )
         $("#image_editor").attr('src', imgSrc)
 
-        // Now change the source
-        // $("#" + {{ $parent_block_id }}).find('img').attr('src', 'https://wedevs.academy/wp-content/uploads/2023/11/graphic-and-multimedia.webp');
+        
     });
 
-    function upload_new_image() {
-        console.log('test')
-    }
+    // Bind the uploader to upload new image and update the source
+    $(document).ready(function() {
+        $('#image_uploader').change(function() {
+            var file = this.files[0]; // Get the selected file
+
+            // Check if a file is selected
+            if (file) {
+                var formData = new FormData(); // Create a FormData object
+
+                formData.append('file', file); // Append the file to the FormData object with 'file' as the key
+
+                // Perform AJAX request to upload the file
+                $.ajax({
+                    url: "{{ route('upload.block.image') }}", // Replace 'upload.php' with your server-side script URL
+                    type: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    data: formData,
+                    processData: false, // Prevent jQuery from automatically processing the data
+                    contentType: false, // Prevent jQuery from automatically setting the Content-Type header
+                    success: function(response) {
+                        // Handle the success response
+                        console.log( response);
+                        // Now change the source
+                        $("#" + {{ $parent_block_id }}).find('img').attr('src', response);
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle the error
+                        console.error('Error uploading file:', error);
+                    }
+                });
+            }
+        });
+    });
+
 @endif
 
 
