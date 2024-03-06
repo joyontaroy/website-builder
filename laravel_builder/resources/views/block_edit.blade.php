@@ -50,6 +50,13 @@
     </select>
     <input type="color" id="border_color_editor"/>
 </div>
+<div class="">
+    <h4>Border roundness</h4>
+    <input type="number" id="content_border_radius_top" style="width:50px;">
+    <input type="number" id="content_border_radius_right" style="width:50px;">
+    <input type="number" id="content_border_radius_bottom" style="width:50px;">
+    <input type="number" id="content_border_radius_left" style="width:50px;">
+</div>
 
 <div class="">
     <h4>Background color</h4>
@@ -85,7 +92,14 @@ function update_content() {
 
     // Change content background color
     $("#" + {{ $parent_block_id }}).css( 'background-color', rgbToHex( $('#background_color_editor').val() ) );
-    
+
+    // Change content border radius
+    console.log($('#content_border_radius_top').val())
+    $("#" + {{ $parent_block_id }}).css( 'border-top-left-radius', $('#content_border_radius_top').val()+'px' );
+    $("#" + {{ $parent_block_id }}).css( 'border-top-right-radius', $('#content_border_radius_right').val()+'px' );
+    $("#" + {{ $parent_block_id }}).css( 'border-bottom-right-radius', $('#content_border_radius_bottom').val()+'px' );
+    $("#" + {{ $parent_block_id }}).css( 'border-bottom-left-radius', $('#content_border_radius_left').val()+'px' );
+
 }
 
 $(document).ready(function() {
@@ -120,7 +134,7 @@ $(document).ready(function() {
     $("#content_border_bottom").val( $("#" + {{ $parent_block_id }}).css('border-bottom-width').match(/\d+/g)[0] ) // remove 'px' by regular expression
     $("#content_border_left").val( $("#" + {{ $parent_block_id }}).css('border-left-width').match(/\d+/g)[0] ) // remove 'px' by regular expression
 
-    // Bind the margin editor, number typed|mouse clicked|arrow up/down
+    // Bind the border editor, number typed|mouse clicked|arrow up/down
     $('#content_border_top').on('keyup change', function() {update_content()})
     $('#content_border_right').on('keyup change', function() {update_content()})
     $('#content_border_bottom').on('keyup change', function() {update_content()})
@@ -140,6 +154,19 @@ $(document).ready(function() {
     $('#background_color_editor').val( rgbToHex( $("#" + {{ $parent_block_id }}).css('background-color')) ) 
     // Bind the background color
     $('#background_color_editor').change( function(){update_content()} )
+
+    // Get the border radius value
+    // console.log("b t r : " + $("#" + {{ $parent_block_id }}).css('border-top-left-radius') )
+    $("#content_border_radius_top").val( $("#" + {{ $parent_block_id }}).css('border-top-left-radius').match(/\d+/g)[0] ) // remove 'px' by regular expression
+    $("#content_border_radius_right").val( $("#" + {{ $parent_block_id }}).css('border-top-right-radius').match(/\d+/g)[0] ) // remove 'px' by regular expression
+    $("#content_border_radius_bottom").val( $("#" + {{ $parent_block_id }}).css('border-bottom-right-radius').match(/\d+/g)[0] ) // remove 'px' by regular expression
+    $("#content_border_radius_left").val( $("#" + {{ $parent_block_id }}).css('border-bottom-left-radius').match(/\d+/g)[0] ) // remove 'px' by regular expression
+
+    // // Bind the border radius editor, number typed|mouse clicked|arrow up/down
+    $('#content_border_radius_top').on('keyup change', function() {update_content()})
+    $('#content_border_radius_right').on('keyup change', function() {update_content()})
+    $('#content_border_radius_bottom').on('keyup change', function() {update_content()})
+    $('#content_border_radius_left').on('keyup change', function() {update_content()})
 });
 
 // Editor for text
