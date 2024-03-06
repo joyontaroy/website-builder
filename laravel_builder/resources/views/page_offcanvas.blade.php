@@ -37,3 +37,9 @@ function show_offcanvas(url , param=''){
     });
 }
 </script>
+<style>
+    .offcanvas {
+        transition:none !important;
+        width: 300px !important;
+    }
+</style>

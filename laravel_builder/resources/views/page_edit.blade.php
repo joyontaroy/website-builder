@@ -23,24 +23,33 @@
 
 
 <!-- Builder assets -->
+<!-- Bootstrap icon -->
+<link rel="stylesheet" href="{{ asset('assets/css/bootstrap-icons.min.css') }}">
 <!-- Sortable Ui -->
 <link href="{{ asset('assets/sortable/jquery-ui.css') }}" rel="stylesheet" type="text/css" />
 <script src="{{ asset('assets/sortable/jquery-ui.js') }}"></script>
 <!-- Toastr  -->
 <link rel="stylesheet" href="{{ asset('assets/toastr/toastr.min.css') }}">
 <script src="{{ asset('assets/toastr/toastr.min.js') }}"></script>
+
+
 <body>
     <!-- Builder bar -->
     <div id="editor_top_bar" class="editor_top_bar">
         <div class="container">
             <div class="row">
-                <div class="col-md-9 py-3">
+                <div class="col-md-5 py-3">
                     <div class="editor_title">Page Builder</div>
                 </div>
                 <div class="col-md-3 py-2">
-                    <a class="btn btn-light btn-lg float-end mx-1" href="{{ route('pages') }}">back</a>
-                    <a class="btn btn-light btn-lg float-end mx-1" href="{{ route('page.view', $page_data->id) }}">preview</a>
-                    <button class="btn btn-light btn-lg float-end mx-1" onclick="save_layout()">save</button>
+                    <a class="btn btn-dark btn-lg float-end mx-1" href="{{ route('pages') }}">
+                        <i class="bi-chevron-left"> </i>Back</a>
+                    <a class="btn btn-dark btn-lg float-end mx-1" href="{{ route('page.view', $page_data->id) }}">
+                        <i class="bi-eye"> </i>Preview
+                    </a>
+                    <button class="btn btn-dark btn-lg float-end mx-1" onclick="save_layout()">
+                        <i class="bi-save"> </i>Save
+                    </button>
                 </div>
             </div>
         </div>
@@ -95,7 +104,11 @@ function save_layout() {
         url: url,
         success: function(msg){
             // Showing the notification message
-            toastr.success('layout updated');
+            toastr.options.progressBar = true;
+            // toastr.options.timeOut = 0;
+            // toastr.options.extendedTimeOut = 0;
+            toastr.options.positionClass = 'toast-bottom-left';
+            toastr.success('Layout updated');
 
         }
     });
@@ -134,9 +147,9 @@ function initiate_builder() {
 
             var parentDiv = document.createElement('div')
             $(parentDiv).addClass("options child")
-            var customHTML = '<div><button class="btn btn-sm btn-secondary " onclick="edit_content(this)" edit-id="' + section_id +'">Edit</button> \
-                                <button class="btn btn-sm btn-danger" onclick="delete_block(this)" delete-id="' + section_id +'">Delete</button>\
-                                <button class="btn btn-sm btn-primary" onclick="add_block(this)" add-id="' + section_id +'">Add below</button>\
+            var customHTML = '<div><button class="btn btn-lg btn-primary block_edit" onclick="edit_content(this)" edit-id="' + section_id +'"><i class="bi-wrench"></i></button> \
+                                <button class="btn btn-lg btn-primary block_delete" onclick="delete_block(this)" delete-id="' + section_id +'"><i class="bi-x-lg"></i></button>\
+                                <button class="btn btn-lg btn-primary block_add" onclick="add_block(this)" add-id="' + section_id +'"><i class="bi-plus-lg"></i></button>\
                                 </div>';
             parentDiv.innerHTML = customHTML;
 
@@ -154,9 +167,9 @@ function initiate_builder() {
 
             var parentDiv = document.createElement('div')
             $(parentDiv).addClass("options child")
-            var customHTML = '<div><button class="btn btn-sm btn-secondary " onclick="edit_content(this)" edit-id="' + section_id +'">Edit</button> \
-                                <button class="btn btn-sm btn-danger" onclick="delete_block(this)" delete-id="' + section_id +'">Delete</button>\
-                                <button class="btn btn-sm btn-primary" onclick="add_block(this)" add-id="' + section_id +'">Add below</button>\
+            var customHTML = '<div><button class="btn btn-lg btn-primary block_edit" onclick="edit_content(this)" edit-id="' + section_id +'"><i class="bi-wrench"></i></button> \
+                                <button class="btn btn-lg btn-primary block_delete" onclick="delete_block(this)" delete-id="' + section_id +'"><i class="bi-x-lg"></i></button>\
+                                <button class="btn btn-lg btn-primary block_add" onclick="add_block(this)" add-id="' + section_id +'"><i class="bi-plus-lg"></i></button>\
                                 </div>';
             parentDiv.innerHTML = customHTML;
 
@@ -174,9 +187,9 @@ function initiate_builder() {
 
             var parentDiv = document.createElement('div')
             $(parentDiv).addClass("options child")
-            var customHTML = '<div><button class="btn btn-sm btn-secondary " onclick="edit_content(this)" edit-id="' + section_id +'">Edit</button> \
-                                <button class="btn btn-sm btn-danger" onclick="delete_block(this)" delete-id="' + section_id +'">Delete</button>\
-                                <button class="btn btn-sm btn-primary" onclick="add_block(this)" add-id="' + section_id +'">Add below</button>\
+            var customHTML = '<div><button class="btn btn-lg btn-primary block_edit" onclick="edit_content(this)" edit-id="' + section_id +'"><i class="bi-wrench"></i></button> \
+                                <button class="btn btn-lg btn-primary block_delete" onclick="delete_block(this)" delete-id="' + section_id +'"><i class="bi-x-lg"></i></button>\
+                                <button class="btn btn-lg btn-primary block_add" onclick="add_block(this)" add-id="' + section_id +'"><i class="bi-plus-lg"></i></button>\
                                 </div>';
             parentDiv.innerHTML = customHTML;
 
@@ -238,10 +251,12 @@ function delete_block(deletebutton) {
 function show_placeholder_block() {
     placeholder_block = '<div class="container placeholder_block_holder" id="placeholder_block">\
     <div class="row">\
-        <div class="col-md-12">\
+        <div class="col-md-6 offset-3">\
             <div class="placeholder_block">\
+                <i class="bi-box" style="font-size:30px;"></i>\
                 <div>Get started by adding new blocks</div>\
-                <button class="btn btn-primary btn-lg" onclick="add_block(this)" add-id="main">Add a new block</button>\
+                <button class="btn btn-primary btn-lg" onclick="add_block(this)" add-id="main">\
+                <i class="bi-plus-circle"></i> Add a new block</button>\
             </div>\
         </div>\
     </div>\
@@ -263,7 +278,7 @@ function remove_placeholder_block() {
     /* Add any other styles you want for the parent div */
 }
 .parent:hover {
-    outline: 2px dashed #999;
+    outline: 2px dashed black;
     display:block;
 }
 .child{
@@ -271,19 +286,32 @@ function remove_placeholder_block() {
     display:none;
     float: right;
     text-align:center;
-    /* border: 2px dashed #000; */
     top: 0;
     left: 0;
     width: 100%;
     cursor: move;
+    margin-top: 5px;
 }
 .parent:hover>.child{display: block;}
+.block_edit{
+    border-radius: 5px 0px 0px 5px !important;
+    margin-right: -5px !important;
+}
+.block_delete{
+    border-radius: 0px !important;
+    margin-right: -5px !important;
+}
+.block_add{
+    border-radius: 0px 5px 5px 0px !important;
+}
+
+
 .editor_top_bar{
     background-color: #121729;
 }
 .editor_title{
     color: #faf4ff;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .builder_image img{
@@ -295,10 +323,35 @@ function remove_placeholder_block() {
     outline: 2px dashed #c1b4d8;
     padding: 50px;
     margin-top:50px;
+    border-radius: 10px;
 }
 .placeholder_block>div{
-    font-size:20px;
-    margin-bottom:20px;
+    margin-top: 10px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    color: #12172a;
+}
+.toast-message{
+    font-size:14px !important;
+    color: #000 !important;
 }
 
+.toast-success{
+    background-color: #fff !important;
+}
+#toast-container>.toast-success{
+    
+}
+#toast-container>.toast-success{
+    background-image: none !important;
+    border-radius: 8px !important;
+    border: 2px solid #4e2cea !important;
+}
+#toast-container>div{
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    opacity: .9 !important;
+    padding: 15px 15px 15px 30px !important;
+}
 </style>

@@ -1,14 +1,66 @@
-{{ $parent_block_id }}
-{{ $content_type }}
 
+<style>
+.block_text_editor {
+    width: 100%;
+    border: 1px solid #e2dcff;
+    border-radius: 6px;
+    padding: 6px;
+    font-size: 12px;
+}
+.block_label {
+    font-size: 12px;
+    font-weight: 100;
+}
+.block_editor_number_first {
+    width: 50px;
+    border: 1px solid #e2dcff;
+    border-radius: 5px 0px 0px 5px;
+    margin-right: -5px;
+    font-size: 12px;
+    padding: 0px 0px 0px 8px;
+    color: #585858;
+}
+.block_editor_number_middle {
+    width: 50px;
+    border: 1px solid #e2dcff;
+    border-radius: 0px 0px 0px 0px;
+    margin-right: -5px;
+    font-size: 12px;
+    padding: 0px 0px 0px 8px;
+    color: #585858;
+}
+.block_editor_number_last {
+    width: 50px;
+    border: 1px solid #e2dcff;
+    border-radius: 0px 5px 5px 0px;
+    margin-right: -5px;
+    font-size: 12px;
+    padding: 0px 0px 0px 8px;
+    color: #585858;
+}
+.block_editor_select {
+    border: 1px solid #e2dcff;
+    border-radius: 5px 5px 5px 5px;
+    font-size: 12px;
+    color: #585858;
+    height: 25px;
+    margin: 5px;
+}
+</style>
 <!-- Editor for  text -->
 @if($content_type == 'text')
 <div class="">
-    <h4>Text editor</h4>
-    <textarea class="form" name="" id="text_editor" rows="5" style="width:100%;"></textarea>
+    <div class="block_label py-2">Text editor</div>
+    <textarea class="block_text_editor py-3" name="" id="text_editor" rows="5"></textarea>
 
-    <h4>Color</h4>
-    <input type="color" id="color_editor"/>
+    <div class="row py-3">
+        <div class="col-md-9">
+            <div class="block_label">Text color</div>
+        </div>
+        <div class="col-md-3">
+            <input type="color" id="color_editor"/>
+        </div>
+    </div>
 </div>
 
 @endif
@@ -16,53 +68,74 @@
 <!-- Editor for  image -->
 @if($content_type == 'image')
 <div class="">
+    <div class="block_label py-2">Image editor</div>
     <img src="" alt="" id="image_editor" style="max-width: 100%;border: 1px solid #ccc;">
     <input type="file" id="image_uploader">
 </div>
 @endif
 <hr>
 <!-- Commong styles -->
-<div class="">
-    <h4>Padding</h4>
-    <input type="number" id="content_padding_top" style="width:50px;">
-    <input type="number" id="content_padding_right" style="width:50px;">
-    <input type="number" id="content_padding_bottom" style="width:50px;">
-    <input type="number" id="content_padding_left" style="width:50px;">
+<div class="py-1">
+    <div class="block_label">Padding</div>
+    <input type="number" id="content_padding_top" class="block_editor_number_first">
+    <input type="number" id="content_padding_right" class="block_editor_number_middle">
+    <input type="number" id="content_padding_bottom" class="block_editor_number_middle">
+    <input type="number" id="content_padding_left" class="block_editor_number_last">
 </div>
-<div class="">
-    <h4>Margin</h4>
-    <input type="number" id="content_margin_top" style="width:50px;">
-    <input type="number" id="content_margin_right" style="width:50px;">
-    <input type="number" id="content_margin_bottom" style="width:50px;">
-    <input type="number" id="content_margin_left" style="width:50px;">
+<div class="py-1">
+    <div class="block_label">Margin</div>
+    <input type="number" id="content_margin_top" class="block_editor_number_first">
+    <input type="number" id="content_margin_right" class="block_editor_number_middle">
+    <input type="number" id="content_margin_bottom" class="block_editor_number_middle">
+    <input type="number" id="content_margin_left" class="block_editor_number_last">
 </div>
-<div class="">
-    <h4>Border</h4>
-    <input type="number" id="content_border_top" style="width:50px;">
-    <input type="number" id="content_border_right" style="width:50px;">
-    <input type="number" id="content_border_bottom" style="width:50px;">
-    <input type="number" id="content_border_left" style="width:50px;">
-    <select name="" id="content_border_style">
+<div class="py-1">
+    <div class="block_label">Border</div>
+    <input type="number" id="content_border_top" class="block_editor_number_first">
+    <input type="number" id="content_border_right" class="block_editor_number_middle">
+    <input type="number" id="content_border_bottom" class="block_editor_number_middle">
+    <input type="number" id="content_border_left" class="block_editor_number_last">
+    <select class="block_editor_select" id="content_border_style">
         <option value="">none</option>
         <option value="solid">solid</option>
         <option value="dashed">dashed</option>
         <option value="dotted">dotted</option>
     </select>
-    <input type="color" id="border_color_editor"/>
+    
 </div>
+<div class="py-1">
+    <div class="block_label">Border roundness</div>
+    <input type="number" id="content_border_radius_top" class="block_editor_number_first">
+    <input type="number" id="content_border_radius_right" class="block_editor_number_middle">
+    <input type="number" id="content_border_radius_bottom" class="block_editor_number_middle">
+    <input type="number" id="content_border_radius_left" class="block_editor_number_last">
+</div>
+
 <div class="">
-    <h4>Border roundness</h4>
-    <input type="number" id="content_border_radius_top" style="width:50px;">
-    <input type="number" id="content_border_radius_right" style="width:50px;">
-    <input type="number" id="content_border_radius_bottom" style="width:50px;">
-    <input type="number" id="content_border_radius_left" style="width:50px;">
+    <div class="row py-3">
+        <div class="col-md-9">
+            <div class="block_label">Border color</div>
+        </div>
+        <div class="col-md-3">
+            <input type="color" id="border_color_editor"/>
+        </div>
+    </div>
 </div>
 
 <div class="">
-    <h4>Background color</h4>
-    <input type="color" id="background_color_editor"/>
+    <div class="row py-3">
+        <div class="col-md-9">
+            <div class="block_label">Background color</div>
+        </div>
+        <div class="col-md-3">
+        <input type="color" id="background_color_editor"/>
+        </div>
+    </div>
 </div>
 
+
+<!-- {{ $parent_block_id }}
+{{ $content_type }} -->
 <script>
 // Editor for all content
 function update_content() {
@@ -90,15 +163,19 @@ function update_content() {
     // Change content border color
     $("#" + {{ $parent_block_id }}).css( 'border-color', rgbToHex( $('#border_color_editor').val() ) );
 
-    // Change content background color
-    $("#" + {{ $parent_block_id }}).css( 'background-color', rgbToHex( $('#background_color_editor').val() ) );
-
     // Change content border radius
     console.log($('#content_border_radius_top').val())
     $("#" + {{ $parent_block_id }}).css( 'border-top-left-radius', $('#content_border_radius_top').val()+'px' );
     $("#" + {{ $parent_block_id }}).css( 'border-top-right-radius', $('#content_border_radius_right').val()+'px' );
     $("#" + {{ $parent_block_id }}).css( 'border-bottom-right-radius', $('#content_border_radius_bottom').val()+'px' );
     $("#" + {{ $parent_block_id }}).css( 'border-bottom-left-radius', $('#content_border_radius_left').val()+'px' );
+
+}
+
+function update_background_color() {
+
+    // Change content background color
+    $("#" + {{ $parent_block_id }}).css( 'background-color', rgbToHex( $('#background_color_editor').val() ) );
 
 }
 
@@ -153,7 +230,7 @@ $(document).ready(function() {
     // Get the background color
     $('#background_color_editor').val( rgbToHex( $("#" + {{ $parent_block_id }}).css('background-color')) ) 
     // Bind the background color
-    $('#background_color_editor').change( function(){update_content()} )
+    $('#background_color_editor').change( function(){update_background_color()} )
 
     // Get the border radius value
     // console.log("b t r : " + $("#" + {{ $parent_block_id }}).css('border-top-left-radius') )
@@ -282,3 +359,4 @@ function update_block(block_id) {
 
 
 </script>
+
