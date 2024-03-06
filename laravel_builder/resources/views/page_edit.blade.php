@@ -263,7 +263,7 @@ function remove_placeholder_block() {
     /* Add any other styles you want for the parent div */
 }
 .parent:hover {
-    outline: 2px dotted #000;
+    outline: 2px dashed #999;
     display:block;
 }
 .child{
@@ -279,34 +279,12 @@ function remove_placeholder_block() {
 }
 .parent:hover>.child{display: block;}
 .editor_top_bar{
-    background-color: #683493;
+    background-color: #121729;
 }
 .editor_title{
     color: #faf4ff;
     font-size: 16px;
 }
-
-
-/* Might not require these styles */
-.section{
-    outline:2px dashed rgba(0,0,0,0)
-}
-.section:hover{
-    /* outline: 2px dashed #000; */
-}
-.builder_text{
-    outline:2px dashed rgba(0,0,0,0)
-}
-.builder_text:hover{
-    /* outline: 2px dashed #000; */
-}
-.builder_image{
-    outline:2px dashed rgba(0,0,0,0)
-}
-.builder_image:hover{
-    /* outline: 2px dashed #000; */
-}
-/* Might not require these styles */
 
 .builder_image img{
     display:block;
