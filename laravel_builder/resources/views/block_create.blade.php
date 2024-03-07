@@ -1,11 +1,47 @@
+<style>
+.ready_block {
+    width: 100%;
+    padding: 5px;
+    position: absolute;
+    top: 0;
+}
+.block_holder {
+    float: left;
+    width: 48%;
+    text-align: center;
+    height: 100px;
+    border: 1px solid #c4cdde;
+    margin: 2px;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+.block_holder:hover {
+    border: 1px solid #97a8e4;
+}
+.block_label {
+    font-size: 10px;
+    font-weight: 100;
+    background-color: #97a1c5;
+    color: #fff;
+    padding: 0px 7px;
+    border-radius: 3px;
+    position: absolute;
+    bottom: 3px;
+}
+</style>
 <!-- Pre-designed blocks -->
 @foreach ($block_list as $block)
-<div>
-    <img src="{{ asset('assets/builder_block_thumb/').'/'.$block->id.'.png' }}" style="max-width:100%; max-height:50px;" />
-    <button class="btn btn-primary btn-lg my-2" onclick="insert_new_block( {{ $block->id }} )">Insert : {{ $block->title }}</button> 
-    <div id="block_storage_{{ $block->id }}" style="display:none;">
-        {!! $block->html !!}
-    </div>
+<div class="block_holder" onclick="insert_new_block( {{ $block->id }} )">
+    <img src="{{ asset('assets/builder_block_thumb/').'/'.$block->id.'.png' }}" class="ready_block"/>
+    <div class="block_label">{{ $block->title }}</div>
+    
+</div>
+<div id="block_storage_{{ $block->id }}" style="display:none;">
+    {!! $block->html !!}
 </div>
 @endforeach
 
