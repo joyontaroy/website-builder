@@ -240,12 +240,15 @@ function delete_block(deletebutton) {
     // Remove the block
     $(deletebutton).parent().parent().parent().remove()
 
+    
+    // var divsWithAttribute = $("div#main.section")
+    // var section_count = divsWithAttribute.length
+    // if (section_count == 0) {
+    //     show_placeholder_block()
+    // }
+    
     // If no block found, show a placeholder block to add new block
-    var divsWithAttribute = $("div.section")
-    var section_count = divsWithAttribute.length
-    if (section_count == 0) {
-        show_placeholder_block()
-    }
+    if ( $.trim($("#main").html()) === '' )show_placeholder_block()
 }
 
 function show_placeholder_block() {

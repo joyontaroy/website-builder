@@ -134,8 +134,8 @@
 </div>
 
 
-<!-- {{ $parent_block_id }}
-{{ $content_type }} -->
+{{ $parent_block_id }}
+{{ $content_type }}
 <script>
 // Editor for all content
 function update_content() {
