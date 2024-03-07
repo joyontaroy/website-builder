@@ -45,11 +45,12 @@
 </div>
 @endforeach
 
+    
 <!-- Basic web elements -->
 <div id="basic_content" style="display:none;">
     <button class="btn btn-primary my-2" onclick="insert_new_block( '6_6' )">Insert : 6_6 </button> 
     <button class="btn btn-primary my-2" onclick="insert_new_block( 'youtube' )">Insert : youtube </button> 
-
+    
     <div id="block_storage_6_6">
         <div class="container" style="padding:20px; border:1px dotted #ccc;">
             <div class="row">
@@ -67,7 +68,7 @@
         </div>
     </div>
     <div id="block_storage_youtube">
-        <p id="placeholder_id">youtube_embed_code_here</p>
+        <p id="placeholder_id">youtube_video_embed_here</p>
     </div>
 </div>
 
